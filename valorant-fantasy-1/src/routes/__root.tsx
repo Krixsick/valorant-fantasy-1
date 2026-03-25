@@ -1,15 +1,22 @@
-import * as React from 'react'
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import type { QueryClient } from "@tanstack/react-query";
 
-export const Route = createRootRoute({
-  component: RootComponent,
-})
-
-function RootComponent() {
-  return (
-    <React.Fragment>
-      <div>Hello "__root"!</div>
-      <Outlet />
-    </React.Fragment>
-  )
+interface RouterContext {
+  queryClient: QueryClient;
 }
+
+const RootLayout = () => (
+  <>
+    <div className="p-2 flex gap-2">
+      <Link to="/" className="[&.active]:font-bold">
+        Home
+      </Link>{" "}
+    </div>
+    <hr />
+    <Outlet />
+    <TanStackRouterDevtools />
+  </>
+);
+
+export const Route = createRootRoute<RouterContext>({ component: RootLayout });
