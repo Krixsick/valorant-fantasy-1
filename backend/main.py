@@ -1,7 +1,8 @@
 from fastapi import FastAPI
-from "teams/players.py" import players
+from teams.players import app as players_router
 app = FastAPI()
 
 app.include_router(
-    prefix=""
+    players_router,
+    prefix="/teams"
 )
